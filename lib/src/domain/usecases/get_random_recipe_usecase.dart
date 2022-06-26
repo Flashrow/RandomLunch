@@ -7,12 +7,8 @@ class GetRandomRecipeUseCase {
 
   GetRandomRecipeUseCase(this.repository);
 
-  Future<List<Recipe>> call({
-    bool limitLicense = false,
-    String tags = "",
-    int number = 1,
-  }) {
-    return repository.getRandomRecipe(
-        limitLicense: limitLicense, tags: tags, number: number);
-  }
+  Future<List<Recipe>> call(
+          {bool limitLicense = false, String tags = "", int number = 1}) =>
+      repository.getRandomRecipe(
+          limitLicense: limitLicense, tags: tags, number: number);
 }

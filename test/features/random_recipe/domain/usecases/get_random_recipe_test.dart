@@ -64,7 +64,7 @@ void main() {
       when(mockRecipesRepository.getRandomRecipe(
               number: numberOfRecipes, tags: tags, limitLicense: limitLicense))
           .thenAnswer((_) async => recipeResponse);
-      final result = await randomRecipeUseCase.call(
+      final result = await randomRecipeUseCase(
           number: numberOfRecipes, tags: tags, limitLicense: limitLicense);
       expect(result, recipeResponse);
       verify(mockRecipesRepository.getRandomRecipe(
