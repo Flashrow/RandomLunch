@@ -17,7 +17,7 @@ void main() {
     randomRecipeUseCase = GetRandomRecipeUseCase(mockRecipesRepository);
   });
 
-  final randomRecipe = Recipe(
+  const randomRecipe = Recipe(
     id: 1,
     title: "Test recipe",
     image: "www.google.com",
@@ -53,14 +53,23 @@ void main() {
     dishTypes: ["dish"],
     summary: "summary",
   );
+  const List<Recipe> recipeResponse = [randomRecipe];
+  const int numberOfRecipes = 1;
+  const String tags = "";
+  const bool limitLicense = false;
 
   test(
     'should get random recipe from the repository',
     () async {
-      when(mockRecipesRepository.getRandomRecipe())
-          .thenAnswer((_) async => [randomRecipe]);
-      final result = await randomRecipeUseCase.call();
-      expect(result, randomRecipe);
+      when(mockRecipesRepository.getRandomRecipe(
+              number: numberOfRecipes, tags: tags, limitLicense: limitLicense))
+          .thenAnswer((_) async => recipeResponse);
+      final result = await randomRecipeUseCase.call(
+          number: numberOfRecipes, tags: tags, limitLicense: limitLicense);
+      expect(result, recipeResponse);
+      verify(mockRecipesRepository.getRandomRecipe(
+          number: numberOfRecipes, tags: tags, limitLicense: limitLicense));
+      verifyNoMoreInteractions(mockRecipesRepository);
     },
   );
 }
