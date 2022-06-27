@@ -7,7 +7,7 @@ import 'dart:async' as _i4;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:random_lunch/src/domain/entities/food_trivia.dart' as _i2;
 import 'package:random_lunch/src/domain/entities/recipe.dart' as _i5;
-import 'package:random_lunch/src/domain/repositories/recipes_repository.dart'
+import 'package:random_lunch/src/domain/repositories/food_repository.dart'
     as _i3;
 
 // ignore_for_file: type=lint
@@ -22,11 +22,11 @@ import 'package:random_lunch/src/domain/repositories/recipes_repository.dart'
 
 class _FakeFoodTrivia_0 extends _i1.Fake implements _i2.FoodTrivia {}
 
-/// A class which mocks [RecipesRepository].
+/// A class which mocks [FoodRepository].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockRecipesRepository extends _i1.Mock implements _i3.RecipesRepository {
-  MockRecipesRepository() {
+class MockFoodRepository extends _i1.Mock implements _i3.FoodRepository {
+  MockFoodRepository() {
     _i1.throwOnMissingStub(this);
   }
 

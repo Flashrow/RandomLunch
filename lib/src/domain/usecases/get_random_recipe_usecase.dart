@@ -1,9 +1,9 @@
-import 'package:random_lunch/src/domain/repositories/recipes_repository.dart';
+import 'package:random_lunch/src/domain/repositories/food_repository.dart';
 
 import '../entities/recipe.dart';
 
 class GetRandomRecipeUseCase {
-  final RecipesRepository repository;
+  final FoodRepository repository;
 
   GetRandomRecipeUseCase(this.repository);
 

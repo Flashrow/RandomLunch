@@ -2,18 +2,18 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:random_lunch/src/domain/entities/recipe.dart';
-import 'package:random_lunch/src/domain/repositories/recipes_repository.dart';
+import 'package:random_lunch/src/domain/repositories/food_repository.dart';
 import 'package:random_lunch/src/domain/usecases/get_random_recipe_usecase.dart';
 
 import 'get_random_recipe_test.mocks.dart';
 
-@GenerateMocks([RecipesRepository])
+@GenerateMocks([FoodRepository])
 void main() {
-  late RecipesRepository mockRecipesRepository;
+  late FoodRepository mockRecipesRepository;
   late GetRandomRecipeUseCase randomRecipeUseCase;
 
   setUp(() {
-    mockRecipesRepository = MockRecipesRepository();
+    mockRecipesRepository = MockFoodRepository();
     randomRecipeUseCase = GetRandomRecipeUseCase(mockRecipesRepository);
   });
 

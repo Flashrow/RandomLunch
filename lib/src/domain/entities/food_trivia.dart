@@ -1,12 +1,10 @@
-import 'package:equatable/equatable.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-class FoodTrivia extends Equatable {
-  final String text;
+part 'food_trivia.freezed.dart';
 
-  const FoodTrivia({
-    required this.text,
-  });
-
-  @override
-  List<Object?> get props => [text];
+@Freezed()
+class FoodTrivia with _$FoodTrivia {
+  const factory FoodTrivia({
+    required String text,
+  }) = _FoodTrivia;
 }
