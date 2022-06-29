@@ -1,8 +1,6 @@
 import 'dart:core';
 
-import 'package:equatable/equatable.dart';
-
-class Recipe extends Equatable {
+class Recipe {
   final int id;
   final String title;
   final String image;
@@ -75,42 +73,4 @@ class Recipe extends Equatable {
     required this.dishTypes,
     required this.summary,
   });
-
-  @override
-  List<Object?> get props => [
-        id,
-        title,
-        image,
-        imageType,
-        servings,
-        readyInMinutes,
-        license,
-        sourceName,
-        sourceUrl,
-        spoonacularSourceUrl,
-        aggregateLikes,
-        healthScore,
-        spoonacularScore,
-        pricePerServing,
-        cheap,
-        creditsText,
-        cuisines,
-        dairyFree,
-        diets,
-        gaps,
-        glutenFree,
-        instructions,
-        ketogenic,
-        lowFodmap,
-        occasions,
-        sustainable,
-        vegan,
-        vegetarian,
-        veryHealthy,
-        veryPopular,
-        whole30,
-        weightWatcherSmartPoints,
-        dishTypes,
-        summary,
-      ];
 }
