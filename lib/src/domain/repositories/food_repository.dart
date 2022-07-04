@@ -1,8 +1,9 @@
 import 'package:random_lunch/src/domain/entities/food_trivia.dart';
-import 'package:random_lunch/src/domain/entities/recipe.dart';
+
+import '../entities/recipes.dart';
 
 abstract class FoodRepository {
-  Future<List<Recipe>> getRandomRecipe({
+  Future<Recipes> getRandomRecipe({
     required bool limitLicense,
     required String tags,
     required int number,

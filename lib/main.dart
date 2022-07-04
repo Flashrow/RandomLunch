@@ -1,11 +1,36 @@
-import 'package:flutter/material.dart';
+import 'dart:async';
 
-void main() {
-  runApp(const MyApp());
+import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:logger/logger.dart';
+import 'package:random_lunch/src/presentation/views/base_screen.dart';
+
+import 'injection.dart' as service_locator;
+
+void main() async {
+  GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+  runZonedGuarded(() async {
+    WidgetsFlutterBinding.ensureInitialized();
+    try {
+      await dotenv.load(fileName: ".env");
+    } catch (e) {
+      Logger().i("Dotenv not loaded");
+      Logger().i(e);
+    }
+    service_locator.init();
+    runApp(MyApp(key: navigatorKey));
+  }, (error, stackTrace) {
+    if (navigatorKey.currentContext != null) {
+      ScaffoldMessenger.of(navigatorKey.currentContext!)
+          .showSnackBar(const SnackBar(
+        content: Text("Error occurred"),
+      ));
+    }
+  });
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,53 +39,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
+      home: BaseScreen(),
     );
   }
 }

@@ -53,7 +53,7 @@ void main() {
     dishTypes: ["dish"],
     summary: "summary",
   );
-  const List<Recipe> recipeResponse = [randomRecipe];
+  const Future<Recipe> recipeResponse = randomRecipe;
   const int numberOfRecipes = 1;
   const String tags = "";
   const bool limitLicense = false;

@@ -24,7 +24,7 @@ class _FoodRemoteDataSource implements FoodRemoteDataSource {
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<FoodTriviaModel>(
             Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, '',
+                .compose(_dio.options, '/food/trivia/random',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = FoodTriviaModel.fromJson(_result.data!);
@@ -32,21 +32,19 @@ class _FoodRemoteDataSource implements FoodRemoteDataSource {
   }
 
   @override
-  Future<List<RecipeModel>> getRandomRecipe(
+  Future<RecipesModel> getRandomRecipe(
       {required limitLicense, required tags, required number}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = limitLicense;
-    final _result = await _dio.fetch<List<dynamic>>(
-        _setStreamType<List<RecipeModel>>(
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<RecipesModel>(
             Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, '',
+                .compose(_dio.options, '/recipes/random',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    var value = _result.data!
-        .map((dynamic i) => RecipeModel.fromJson(i as Map<String, dynamic>))
-        .toList();
+    final value = RecipesModel.fromJson(_result.data!);
     return value;
   }
 

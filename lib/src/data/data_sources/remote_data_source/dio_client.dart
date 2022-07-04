@@ -1,8 +1,7 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_config/flutter_config.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:injectable/injectable.dart';
-
-import '../../../config/secure_storage.dart';
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 class DioClient {
   @lazySingleton
@@ -11,12 +10,13 @@ class DioClient {
       BaseOptions(
         connectTimeout: 10000,
         receiveTimeout: 10000,
-        baseUrl: FlutterConfig.get('API_URL'),
+        baseUrl: dotenv.env['API_URL'] ?? "",
         validateStatus: (status) {
           return status! < 400;
         },
       ),
     );
+    _dio.interceptors.add(PrettyDioLogger());
     _dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: _onRequest,
@@ -29,8 +29,8 @@ class DioClient {
 
   void _onRequest(options, handler) async {
     dio.lock();
-    String? apiKey = await SecureStorage.readApiKey();
-    options.headers['x-apikey'] = '$apiKey';
+    String? apiKey = dotenv.env['API_KEY'];
+    options.queryParameters['apiKey'] = apiKey;
     options.headers['Content-Type'] = 'application/json';
     handler.next(options);
   }

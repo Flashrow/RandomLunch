@@ -1,7 +1,8 @@
 import 'package:random_lunch/src/data/data_sources/food_data_source.dart';
 import 'package:random_lunch/src/data/models/food_trivia_model.dart';
-import 'package:random_lunch/src/data/models/recipe_model.dart';
 import 'package:random_lunch/src/domain/repositories/food_repository.dart';
+
+import '../models/recipes_model.dart';
 
 class FoodRepositoryImplementation implements FoodRepository {
   FoodDataSource remoteFoodDatasource;
@@ -13,7 +14,7 @@ class FoodRepositoryImplementation implements FoodRepository {
       remoteFoodDatasource.getRandomFoodTrivia();
 
   @override
-  Future<List<RecipeModel>> getRandomRecipe(
+  Future<RecipesModel> getRandomRecipe(
           {required bool limitLicense,
           required String tags,
           required int number}) =>

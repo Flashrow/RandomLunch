@@ -5,6 +5,7 @@ import 'package:random_lunch/src/data/models/recipe_model.dart';
 import 'package:retrofit/http.dart';
 
 import '../../models/food_trivia_model.dart';
+import '../../models/recipes_model.dart';
 import 'endpoints.dart';
 
 part 'food_remote_data_source.g.dart';
@@ -21,7 +22,7 @@ abstract class FoodRemoteDataSource implements FoodDataSource {
 
   @override
   @GET(Endpoints.randomRecipe)
-  Future<List<RecipeModel>> getRandomRecipe({
+  Future<RecipesModel> getRandomRecipe({
     @Body() required bool limitLicense,
     @Body() required String tags,
     @Body() required int number,
